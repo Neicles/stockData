@@ -1,29 +1,27 @@
 import duckdb
 
-# Connect to an in-memory DuckDB database
-con = duckdb.connect()
+# Connexion à une base DuckDB persistante (au lieu d'in-memory)
+db_path = "dbStockData.duckdb"
+with duckdb.connect(db_path) as con:
+    # Créer le schéma raws
+    con.execute("CREATE SCHEMA IF NOT EXISTS raws")
 
-def create_and_read_table_from_parquet_file(con, parquet_file, table_name):
-    con.execute(f"CREATE TABLE {table_name} AS SELECT * FROM '{parquet_file}'")
-    result = con.execute(f"SELECT * FROM {table_name}").fetchdf()
-    return result
+    def create_and_read_table_from_parquet_file(con, parquet_file, schema_name, table_name):
+        con.execute(f"CREATE OR REPLACE TABLE {schema_name}.{table_name} AS SELECT * FROM read_parquet('{parquet_file}')")
+        result = con.execute(f"SELECT * FROM {schema_name}.{table_name}").fetchdf()
+        return result
 
-# Read the contributors data from the parquet file
-contributors_data = create_and_read_table_from_parquet_file(con, 'data/contributors_data.parquet', 'contributors_data')
-print(contributors_data)
+    contributors_data = create_and_read_table_from_parquet_file(con, 'data/contributors_data.parquet', 'raws', 'contributors_data')
+    print(contributors_data)
 
-# Read the forks data from the parquet file
-forks_data = create_and_read_table_from_parquet_file(con, 'data/forks_data.parquet', 'forks_data')
-print(forks_data)
+    forks_data = create_and_read_table_from_parquet_file(con, 'data/forks_data.parquet', 'raws', 'forks_data')
+    print(forks_data)
 
-# Read the issues data from the parquet file
-issues_data = create_and_read_table_from_parquet_file(con, 'data/issues_data.parquet', 'issues_data')
-print(issues_data)
+    issues_data = create_and_read_table_from_parquet_file(con, 'data/issues_data.parquet', 'raws', 'issues_data')
+    print(issues_data)
 
-# Read the suscribers data from the parquet file
-suscribers_data = create_and_read_table_from_parquet_file(con, 'data/suscribers_data.parquet', 'suscribers_data')
-print(suscribers_data)
+    suscribers_data = create_and_read_table_from_parquet_file(con, 'data/suscribers_data.parquet', 'raws', 'suscribers_data')
+    print(suscribers_data)
 
-# Read the stargazers data from the parquet file
-stargazers_data = create_and_read_table_from_parquet_file(con, 'data/stargazers_data.parquet', 'stargazers_data')
-print(stargazers_data)
+    stargazers_data = create_and_read_table_from_parquet_file(con, 'data/stargazers_data.parquet', 'raws', 'stargazers_data')
+    print(stargazers_data)

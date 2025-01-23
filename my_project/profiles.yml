@@ -1,0 +1,9 @@
+my_project:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: '../dbStockData.duckdb'
+      schema: cleansed
+      extensions:
+        - parquet

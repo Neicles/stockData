@@ -1,0 +1,51 @@
+version: 2
+
+models:
+  - name: forks
+    description: "Données nettoyées des forks GitHub"
+    columns:
+      - name: id
+        description: "Identifiant unique du fork"
+        tests:
+          - unique
+          - not_null
+
+      - name: owner_login
+        description: "Nom du propriétaire du fork"
+        tests:
+          - not_null
+
+      - name: created_at
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: "'2008-01-01'"
+              max_value: "'2025-12-31'"
+              strictly: false
+
+      - name: updated_at
+        description: "Date de dernière mise à jour du fork"
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: "'2008-01-01'"
+              max_value: "'2025-12-31'"
+              strictly: false
+
+      - name: forks_count
+        description: "Nombre de forks"
+        tests:
+          - not_null
+
+      - name: archived
+        description: "Indique si le dépôt est archivé"
+        tests:
+          - not_null
+          - accepted_values:
+              values: [true, false]
+
+      - name: disabled
+        description: "Indique si le dépôt est désactivé"
+        tests:
+          - not_null
+          - accepted_values:
+              values: [true, false]
