@@ -17,6 +17,9 @@ response = requests.get(url, headers=headers)
 repo_data = response.json()
 contributors_url = repo_data.get('contributors_url')
 forks_url = repo_data.get('forks_url')
+issues_url = repo_data.get('issues_url').replace("{/number}", "")
+subscribers_url = repo_data.get('subscribers_url')
+stargazers_url = repo_data.get('stargazers_url')
 
 os.makedirs('data', exist_ok=True)
 
@@ -24,9 +27,10 @@ def retrieve_data(url, headers, data_type):
     data = []
     page = 1
     while page <= 5:
-        print(f'Request sent to {url} for page {page}')
-        response = requests.get(url, headers=headers, params={'page': page, 'per_page': 100})
-        print(f'Response status: {response.status_code}')
+        params = {'page': page, 'per_page': 100}
+        if data_type == "issues":
+            params["state"] = "all"
+        response = requests.get(url, headers=headers, params=params)
         if response.status_code == 200:
             page_data = response.json()
             if not page_data:
@@ -47,3 +51,6 @@ def retrieve_data(url, headers, data_type):
 
 contributors_data = retrieve_data(contributors_url, headers, 'contributors')
 forks_data = retrieve_data(forks_url, headers, 'forks')
+issues_data = retrieve_data(issues_url, headers, 'issues')
+suscribers_data = retrieve_data(subscribers_url, headers, 'suscribers')
+stargazers_data = retrieve_data(stargazers_url, headers, 'stargazers')
