@@ -12,4 +12,4 @@ sources:
       - name: suscribers_data
         description: "Données brutes des abonnés"
       - name: stargazers_data
-        description: "Données brutes des étoiles"
+        d escription: "Données brutes des étoiles"

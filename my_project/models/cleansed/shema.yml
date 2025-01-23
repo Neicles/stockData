@@ -16,7 +16,9 @@ models:
           - not_null
 
       - name: created_at
+        description: "Date de création du fork"
         tests:
+          - not_null
           - dbt_expectations.expect_column_values_to_be_between:
               min_value: "'2008-01-01'"
               max_value: "'2025-12-31'"
@@ -45,6 +47,44 @@ models:
 
       - name: disabled
         description: "Indique si le dépôt est désactivé"
+        tests:
+          - not_null
+          - accepted_values:
+              values: [true, false]
+
+  - name: stargazer
+    description: "Données nettoyées des utilisateurs ayant étoilé un repo GitHub"
+    columns:
+      - name: stargazer_id
+        description: "Identifiant unique de l'utilisateur"
+        tests:
+          - unique
+          - not_null
+
+      - name: user_login
+        description: "Nom du propriétaire du compte GitHub"
+        tests:
+          - not_null
+
+      - name: avatar_url
+        description: "URL de l'avatar de l'utilisateur"
+        tests:
+          - not_null
+
+      - name: html_url
+        description: "URL du profil GitHub"
+        tests:
+          - not_null
+
+      - name: user_type
+        description: "Type de compte (User, Organization)"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["User", "Organization"]
+
+      - name: site_admin
+        description: "Indique si l'utilisateur est un admin GitHub"
         tests:
           - not_null
           - accepted_values:
