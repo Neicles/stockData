@@ -89,3 +89,26 @@ models:
           - not_null
           - accepted_values:
               values: [true, false]
+
+      - name: contributors
+        description: "Données nettoyées des contributeurs GitHub"
+        columns:
+          - name: contributor_id
+            description: "Identifiant unique du contributeur"
+            tests:
+              - unique
+              - not_null
+
+          - name: contributor_login
+            description: "Nom du contributeur (normalisé en minuscule)"
+            tests:
+              - not_null
+
+          - name: nombre_contributions
+            description: "Nombre total de contributions du contributeur"
+            tests:
+              - not_null
+              - dbt_expectations.expect_column_values_to_be_between:
+                  min_value: 1
+                  max_value: 1000000
+                  strictly: false
