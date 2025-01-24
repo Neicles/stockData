@@ -148,3 +148,57 @@ models:
           - not_null
           - accepted_values:
               values: [true, false]
+
+  - name: issues
+    description: "Données nettoyées des issues GitHub"
+    columns:
+      - name: issue_id
+        description: "Identifiant unique de l'issue"
+        tests:
+          - unique
+          - not_null
+
+      - name: issue_number
+        description: "Numéro de l'issue"
+        tests:
+          - not_null
+
+      - name: issue_title
+        description: "Titre de l'issue"
+        tests:
+          - not_null
+
+      - name: contributor_id
+        description: "Identifiant du contributeur ayant créé l'issue"
+        tests:
+          - not_null
+
+      - name: contributor_login
+        description: "Nom du contributeur (login GitHub)"
+        tests:
+          - not_null
+
+      - name: issue_state
+        description: "État de l'issue (ouverte ou fermée)"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["open", "closed"]
+
+      - name: issue_created_date
+        description: "Date de création de l'issue"
+        tests:
+          - not_null
+
+      - name: issue_updated_date
+        description: "Date de dernière mise à jour de l'issue"
+        tests:
+          - not_null
+
+      - name: issue_closed_date
+        description: "Date de fermeture de l'issue (nullable)"
+
+      - name: issue_comments_count
+        description: "Nombre de commentaires sur l'issue"
+        tests:
+          - not_null
