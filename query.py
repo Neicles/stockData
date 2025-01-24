@@ -20,7 +20,7 @@ with duckdb.connect(db_path) as con:
     issues_data = create_and_read_table_from_parquet_file(con, 'data/issues_data.parquet', 'raws', 'issues_data')
     print(issues_data)
 
-    suscribers_data = create_and_read_table_from_parquet_file(con, 'data/suscribers_data.parquet', 'raws', 'suscribers_data')
+    suscribers_data = create_and_read_table_from_parquet_file(con, 'data/subscribers_data.parquet', 'raws', 'subscribers_data')
     print(suscribers_data)
 
     stargazers_data = create_and_read_table_from_parquet_file(con, 'data/stargazers_data.parquet', 'raws', 'stargazers_data')

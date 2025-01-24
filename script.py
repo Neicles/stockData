@@ -52,5 +52,5 @@ def retrieve_data(url, headers, data_type):
 contributors_data = retrieve_data(contributors_url, headers, 'contributors')
 forks_data = retrieve_data(forks_url, headers, 'forks')
 issues_data = retrieve_data(issues_url, headers, 'issues')
-suscribers_data = retrieve_data(subscribers_url, headers, 'suscribers')
+subscribers_data = retrieve_data(subscribers_url, headers, 'subscribers')
 stargazers_data = retrieve_data(stargazers_url, headers, 'stargazers')

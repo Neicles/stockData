@@ -9,7 +9,7 @@ sources:
         description: "Données brutes des issues"
       - name: contributors_data
         description: "Données brutes des contributeurs"
-      - name: suscribers_data
-        description: "Données brutes des abonnés"
+      - name: subscribers_data
+        description: "Données brutes des abonnés GitHub"
       - name: stargazers_data
         d escription: "Données brutes des étoiles"
