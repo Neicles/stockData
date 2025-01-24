@@ -1,0 +1,24 @@
+models:
+  - name: dimension_date
+    description: "Dimension temporelle des issues GitHub"
+    columns:
+      - name: id_date
+        description: "Identifiant unique de la date (date normalisée)"
+        tests:
+          - unique
+          - not_null
+
+      - name: jour
+        description: "Jour du mois (1-31)"
+        tests:
+          - not_null
+
+      - name: mois
+        description: "Mois de l'année (1-12)"
+        tests:
+          - not_null
+
+      - name: annee
+        description: "Année (ex: 2025)"
+        tests:
+          - not_null

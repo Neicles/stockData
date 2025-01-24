@@ -33,3 +33,5 @@
     my_project:
       cleansed:
         +schema: cleansed
+      application:
+        +schema: application
