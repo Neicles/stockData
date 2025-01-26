@@ -110,3 +110,65 @@ models:
         tests:
           - not_null
 
+
+  - name: fact_issues
+    description: "Table des issues provenant de GitHub"
+    columns:
+      - name: issue_id
+        description: "Identifiant unique de l'issue"
+
+      - name: issue_number
+        description: "Numéro de l'issue dans le dépôt"
+
+      - name: issue_state
+        description: "État de l'issue (open/closed)"
+
+      - name: id_statut
+        description: "Clé étrangère vers la table `dimension_statut`"
+
+      - name: id_type
+        description: "Type de l'issue (Bug, Feature, Documentation, Autre)"
+
+      - name: issue_title
+        description: "Titre de l'issue"
+
+      - name: id_date_creation
+        description: "Date de création de l'issue"
+
+      - name: id_date_cloture
+        description: "Date de clôture de l'issue"
+
+      - name: id_date_update
+        description: "Date de mise à jour de l'issue"
+
+      - name: contributor_id
+        description: "Identifiant du contributeur ayant créé l'issue"
+
+      - name: id_priorite
+        description: "ID de la priorité (Basse, Moyenne, Haute)"
+
+    indicators:
+      - name: total_issues
+        description: "Nombre total d'issues"
+        calculation: "COUNT(issue_id)"
+      - name: avg_resolution_time_days
+        description: "Délai moyen entre ouverture et fermeture"
+        calculation: "AVG(DATEDIFF(id_date_cloture, id_date_creation))"
+      - name: resolution_percentage
+        description: "Pourcentage d'issues résolues"
+        calculation: "COUNT(CASE WHEN issue_state = 'closed' THEN 1 END) * 100.0 / COUNT(issue_id)"
+      - name: critical_issues
+        description: "Nombre d'issues critiques"
+        calculation: "SUM(CASE WHEN id_priorite = 3 THEN 1 ELSE 0 END)"
+      - name: high_issues
+        description: "Nombre d'issues élevées"
+        calculation: "SUM(CASE WHEN id_priorite = 2 THEN 1 ELSE 0 END)"
+      - name: low_issues
+        description: "Nombre d'issues faibles"
+        calculation: "SUM(CASE WHEN id_priorite = 1 THEN 1 ELSE 0 END)"
+      - name: distinct_types
+        description: "Nombre de types d'issues distincts"
+        calculation: "COUNT(DISTINCT id_type)"
+      - name: distinct_responsibles
+        description: "Nombre de responsables distincts"
+        calculation: "COUNT(DISTINCT contributor_id)"
