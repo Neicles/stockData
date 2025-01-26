@@ -5,9 +5,8 @@ WITH issue_data AS (
         issues.issue_title,
         issues.issue_state,
         COALESCE(dim_statut.id_statut, -1) AS id_statut,
-        COALESCE(dim_date_creation.id_date, DATE '1970-01-01') AS id_date_creation,
-        COALESCE(dim_date_update.id_date, DATE '1970-01-01') AS id_date_update,
-        COALESCE(dim_date_cloture.id_date, DATE '1970-01-01') AS id_date_cloture,
+        COALESCE(dim_date_creation.id_date, DATE '2025-01-01') AS id_date_creation,
+        COALESCE(dim_date_cloture.id_date, NULL) AS id_date_cloture,
         issues.issue_comments_count,
         issues.contributor_id,
         COALESCE(dim_type.id_type, 4) AS id_type,
@@ -35,9 +34,10 @@ WITH issue_data AS (
             ELSE 1
         END = dim_priorite.id_priorite
 )
+
 SELECT
     COUNT(issue_id) AS total_issues,
-    AVG(DATEDIFF('day', CAST(id_date_creation AS DATE), COALESCE(CAST(id_date_cloture AS DATE), CURRENT_DATE))) AS avg_resolution_time_days,
+    AVG(DATEDIFF('day', CAST(id_date_creation AS DATE), COALESCE(CAST(id_date_cloture AS DATE), CURRENT_DATE))) AS avg_resolution_time_days,ure et fermeture
     (COUNT(CASE WHEN issue_state = 'closed' THEN 1 END) * 100.0 / COUNT(issue_id)) AS resolution_percentage,
     SUM(CASE WHEN id_priorite = 3 THEN 1 ELSE 0 END) AS critical_issues,
     SUM(CASE WHEN id_priorite = 2 THEN 1 ELSE 0 END) AS high_issues,

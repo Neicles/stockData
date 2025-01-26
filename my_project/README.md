@@ -90,11 +90,12 @@ Les dimensions utilisées pour analyser les issues sont :
 ### Exemple de résultat :
 Voici un exemple de résultat du modèle `fact_issues` après transformation et analyse des données du dépôt GitHub :
 
-![img_6.png](img_6.png)
+
+![img_10.png](img_10.png)
 
 | total_issues | avg_resolution_time_days | resolution_percentage | critical_issues | high_issues | low_issues | distinct_types | distinct_responsibles |
-|--------------|---------------------------|-----------------------|------------------|--------------|------------|----------------|-----------------------|
-| 500          | -8701.356                 | 57.2                  | 10.0             | 143.0        | 347.0      | 4              | 253                   |
+|--------------|--------------------------|-----------------------|------------------|--------------|------------|----------------|-----------------------|
+| 500          | 28.12                    | 57.2                  | 10.0             | 143.0        | 347.0      | 4              | 253                   |
 
 ### Explication des résultats :
 - Le **nombre total d'issues** (`total_issues`) représente la totalité des issues existantes dans le dépôt.
