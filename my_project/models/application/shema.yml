@@ -22,3 +22,20 @@ models:
         description: "Année (ex: 2025)"
         tests:
           - not_null
+
+  - name: dimension_statut
+    description: "Dimension des statuts des issues GitHub"
+    columns:
+      - name: id_statut
+        description: "Identifiant du statut de l'issue (open, closed)"
+        tests:
+          - unique
+          - not_null
+
+      - name: statut
+        description: "Nom du statut de l'issue (ex: open, closed)"
+        tests:
+          - not_null
+
+      - name: description
+        description: "Description du statut (peut être enrichie plus tard)"
