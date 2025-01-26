@@ -39,3 +39,27 @@ models:
 
       - name: description
         description: "Description du statut (peut être enrichie plus tard)"
+
+  - name: dimension_responsable
+    description: "Table des responsables liés aux issues"
+    columns:
+      - name: id_responsable
+        description: "Identifiant unique du responsable"
+        tests:
+          - unique
+          - not_null
+
+      - name: nom
+        description: "Nom du responsable (normalisé en minuscule)"
+        tests:
+          - not_null
+
+      - name: role
+        description: "Rôle du responsable"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["Contributeur"]
+
+      - name: email
+        description: "Email (s'il est disponible, sinon NULL)"
