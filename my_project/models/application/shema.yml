@@ -63,3 +63,19 @@ models:
 
       - name: email
         description: "Email (s'il est disponible, sinon NULL)"
+
+  - name: dimension_priorite
+    description: "Table de dimension des priorités des issues GitHub"
+    columns:
+      - name: id_priorite
+        description: "Identifiant unique de la priorité (basé sur le nombre de commentaires)"
+        tests:
+          - unique
+          - not_null
+
+      - name: priorite
+        description: "Niveau de priorité de l'issue (Haute, Moyenne, Basse)"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["Haute", "Moyenne", "Basse"]
