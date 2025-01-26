@@ -95,3 +95,18 @@ models:
           - not_null
           - accepted_values:
               values: ["Bug", "Feature", "Documentation", "Autre"]
+
+  - name: dimension_module
+    description: "Dimension des modules concernés par une issue"
+    columns:
+      - name: id_module
+        description: "Identifiant unique du module"
+        tests:
+          - unique
+          - not_null
+
+      - name: module
+        description: "Nom du module (ex: UI, API, Auth, Autre)"
+        tests:
+          - not_null
+
